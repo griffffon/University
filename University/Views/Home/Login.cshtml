@@ -1,0 +1,63 @@
+﻿@model University.Models.UserAuthViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="site-title">Система контроля университета</div>
+
+        <div id="clear"></div>
+
+        <div id="content">
+            <p style="font-size: 35px; text-align: center; margin:5px;">Вход в систему</p>
+            @using (@Html.BeginForm("Login", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <table align="center" border="0">
+                    <tr>
+                        <td>@Html.LabelFor(x => x.Login, "Логин: ")</td>
+                        <td>@Html.TextBoxFor(x => x.Login)</td>
+                        <td>@Html.ValidationMessageFor(x => x.Login)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.Password, "Пароль: ")</td>
+                        <td>@Html.TextBoxFor(x => x.Password)</td>
+                        <td>@Html.ValidationMessageFor(x => x.Password)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><center><input type="submit" value="Вход" /></center></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><center>@Html.ActionLink("Забыли пароль?", "ForgotPassword", "Home")</center><br /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><center>@Html.ActionLink("Стартовая страница", "Index", "Home")</center></td>
+                        <td></td>
+                    </tr>
+                </table>
+            }
+        </div>
+
+        <div id="clear"></div>
+
+        <div id="footer">
+            <center>Зелинский Григорий ©<br />2015 год</center>
+        </div>
+    </div>
+</body>
+</html>

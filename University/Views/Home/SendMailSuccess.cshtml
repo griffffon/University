@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="site-title">Система контроля университета</div>
+
+        <div id="clear"></div>
+
+        <div id="content">
+            <center>
+                <p style="color: #1d9600; font-size:35px;">Письмо успешно отправлено</p>
+                @Html.ActionLink("Стартовая страница", "Index", "Home")
+            </center>
+        </div>
+
+        <div id="clear"></div>
+
+        <div id="footer">
+            <center>Зелинский Григорий ©<br />2015 год</center>
+        </div>
+    </div>
+</body>
+</html>

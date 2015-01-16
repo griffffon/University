@@ -1,0 +1,149 @@
+﻿@model University.Models.RegisterTeacherViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* Скрипт подгрузки данных во второй дропдаун *@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#departmentList").change(function () {
+                var dID = $(this).val();
+                $.getJSON("../Home/LoadCathedrasByDepartment", { deptId: dID },
+                       function (data) {
+                           var select = $("#cathedrasList");
+                           select.empty();
+                           select.append($('<option/>', {
+                               value: 0,
+                               text: "Select a Physian"
+                           }));
+                           $.each(data, function (index, itemData) {
+                               select.append($('<option/>', {
+                                   value: itemData.Value,
+                                   text: itemData.Text
+                               }));
+                           });
+                       });
+            });
+        });
+    </script>
+
+    <script>
+        function fill() {
+            var dID = $(this).val();
+            $.getJSON("../Home/LoadCathedrasByDepartment", { deptId: dID },
+                   function (data) {
+                       var select = $("#cathedrasList");
+                       select.empty();
+                       select.append($('<option/>', {
+                           value: 0,
+                           text: "Select a Physian"
+                       }));
+                       $.each(data, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
+        }
+    </script>
+
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="site-title">Система контроля университета</div>
+
+        <div id="clear"></div>
+
+        <div id="content">
+            <p style="font-size: 35px; text-align: center; margin:5px;">Добавить преподавателя</p>
+            @using (@Html.BeginForm("AddTeacher", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <table align="center" border="0">
+                    <tr>
+                        <td>@Html.LabelFor(x => x.LastName, "Фамилия: ")</td>
+                        <td>@Html.TextBoxFor(x => x.LastName, new { style = "width:100%;" })</td>
+                        <td>@Html.ValidationMessageFor(x => x.LastName)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.FirstName, "Имя: ")</td>
+                        <td>@Html.TextBoxFor(x => x.FirstName, new { style = "width:100%;" })</td>
+                        <td>@Html.ValidationMessageFor(x => x.FirstName)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.MiddleName, "Отчество: ")</td>
+                        <td>@Html.TextBoxFor(x => x.MiddleName, new { style = "width:100%;" })</td>
+                        <td>@Html.ValidationMessageFor(x => x.MiddleName)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.Login, "Логин: ")</td>
+                        <td>@Html.TextBoxFor(x => x.Login, new { style = "width:100%;" })</td>
+                        <td>@Html.ValidationMessageFor(x => x.Login)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.Password, "Пароль: ")</td>
+                        <td>@Html.PasswordFor(x => x.Password, new { style = "width:100%;" })</td>
+                        <td>@Html.ValidationMessageFor(x => x.Password)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.Phone, "Телефон: ")</td>
+                        <td>@Html.TextBoxFor(x => x.Phone, new { style = "width:100%;" })</td>
+                        <td>@Html.ValidationMessageFor(x => x.Phone)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.Email, "Email: ")</td>
+                        <td>@Html.TextBoxFor(x => x.Email, new { style = "width:100%;" })</td>
+                        <td>@Html.ValidationMessageFor(x => x.Email)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.Address, "Адрес: ")</td>
+                        <td>@Html.TextBoxFor(x => x.Address, new { style = "width:100%;" })</td>
+                        <td>@Html.ValidationMessageFor(x => x.Address)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.AdminAccount, "Администратор: ")</td>
+                        <td>@Html.CheckBoxFor(x => x.AdminAccount)</td>
+                        <td></td>
+                    </tr>
+                    @* 2 dropdowns *@
+                    <tr>
+                        <td>@Html.LabelFor(Model => Model.Departments, "Факультет: ")</td>
+                        <td>@Html.DropDownListFor(Model => Model.Departments, new SelectList(ViewBag.Departments as System.Collections.IEnumerable, "Value", "Text"), "Выберите факультет", new { id = "departmentList" })</td>
+                        <td>@Html.ValidationMessageFor(Model => Model.Departments)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(Model => Model.Cathedras, "Кафедра: ")</td>
+                        <td>@Html.DropDownListFor(Model => Model.Cathedras, new SelectList(Enumerable.Empty<SelectListItem>(), "cathID", "cathName"), "Выберите кафедру", new { id = "cathedrasList" })</td>
+                        <td>@Html.ValidationMessageFor(Model => Model.Cathedras)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><center><input type="submit" value="Зарегистрироваться" /></center></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><center><br />@Html.ActionLink("Стартовая страница", "Index", "Home")</center></td>
+                        <td></td>
+                    </tr>
+                </table>
+            }
+        </div>
+
+        <div id="clear"></div>
+
+        <div id="footer">
+            <center>Зелинский Григорий ©<br />2015 год</center>
+        </div>
+    </div>
+</body>
+</html>

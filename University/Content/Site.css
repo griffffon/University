@@ -1,6 +1,7 @@
 ﻿body {
-    background-image: url(Images/background.jpg);
+    background-image: url(Images/background2.jpg);
     background-size:cover;
+    font-family:'Comic Sans MS';
 }
 
 #wrapper {
@@ -55,3 +56,35 @@
 }
 
 .bx-wrapper ul li { height: 300px; }
+
+a {
+    color: #353434;
+}
+
+a:hover {
+    color: black;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #ff0000;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
